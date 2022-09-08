@@ -1,5 +1,5 @@
 
-# <center><ins>Time Bins (*tbins*) for Classification <\ins><\center>
+# <center>Time Bins (*tbins*) for Classification<\center>
 
 Time bins for classification of categorical information encoded in point processes using ensembles of gradient boosted decision trees.
 
