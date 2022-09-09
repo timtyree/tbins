@@ -1,0 +1,24 @@
+. # tbins design pattern
+└── tbins/
+    ├── doc/
+    ├── fig/
+    ├── notebooks/
+    |   ├── decoding_individual_identity.ipynb
+    │   └── lib/
+    │       ├── __init__.py
+    │       ├── get_init.py
+    │       ├── model/
+    │       │   └── __init__.py
+    │       ├── viewer/
+    │       │   └── __init__.py
+    │       ├── controller/
+    │       │   └── __init__.py
+    │       ├── measures/
+    │       │   └── __init__.py
+    │       ├── utils/
+    │       │   └── __init__.py
+    │       └── routines/
+    │           └── __init__.py
+    ├── .gitignore
+    ├── LICENSE
+    └── README.md
