@@ -1,9 +1,9 @@
 
-# <center>Time Bins (*tbins*) for Classification<\center>
+# Time Bins for Classification (tbins)
 
 Time bins for classification of categorical information encoded in point processes using ensembles of gradient boosted decision trees.
 
-[This is a comment that will be hidden. Physics Rocks!]: #
+[This is a comment that will be hidden. Hurray for Science!]: #
 
 The <a href="https://www.markdownguide.org" target="_blank">example output<\a> was generated
 
