@@ -5,11 +5,9 @@ Time bins for classification of categorical information encoded in point process
 
 [This is a comment that will be hidden. Hurray for Science!]: #
 
-The [example output](https://www.google.com)
-<a href="https://www.markdownguide.org" target="_blank">
-was generated
 
-The reader is encouraged to verify, interpret, enjoy, and extend the methods presented in the [example notebook](https://github.com/timtyree/tbins/notebooks/1.\ decoding_individual_identity.ipynb).  In it, the reader may click on a dataset like the one found [here](https://www.markdownguide.org), which was used to generate the following recievwer operator characteristic (ROC) traces:
+
+The reader is encouraged to verify, interpret, enjoy, and extend the methods presented in the [example notebook](https://github.com/timtyree/tbins/notebooks/decoding_individual_identity.ipynb), which produced the [example output](https://github.com/timtyree/tbins/doc/decoding_individual_identity.pdf).  In the notebook, the reader may click on a file comparable to the [example dataset](https://datadryad.org/stash), which was used to generate the following recievwer operator characteristic (ROC) traces:
 
 ![Generated in tbins/notebooks/](/fig/token_roc.png "Hades observing her sister, Hermes\n(from tbins/notebooks)")
 
