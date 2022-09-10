@@ -61,7 +61,7 @@ def gener_tbins_fast(spike_time_array,booT,booF,
     Example Usage
     --------------
 X,tbin_indices=extract_simple_firing_rates(spike_time_array, df_tbins)
-df_tbins_cv,df_tbins_refined_cv =  gener_tbins_fast(spike_time_array,booT,booF,refinement=True,num_cv_samples=5,printing=True)#**kwargs
+df_tbins_cv,df_tbins_refined_cv=gener_tbins_fast(spike_time_array,booT,booF,refinement=True,num_cv_samples=5,printing=True)
     """
     num_iter = num_perturbations
     tau_values=np.arange(taumin,taumax+delta_tau_min,delta_tau_min)

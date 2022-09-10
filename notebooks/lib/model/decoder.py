@@ -173,7 +173,7 @@ print_dict(dict_cm)
 ############################################################################
 # main decoder routine for multiconcept multimodal social recognition tasks
 ############################################################################
-def routine_generate_decoder_predictions_test(dict_tbins_lst,spike_time_array,data,d_labels,
+def routine_generate_decoder_predictions_test(dict_tbins_lst,spike_time_array,data,df_labels,
                 p_significant=0.05,
                 scale_pos_weight=None, #100. #5
                 learning_rate=None, #0.2
@@ -185,11 +185,11 @@ def routine_generate_decoder_predictions_test(dict_tbins_lst,spike_time_array,da
                 printing=True,verbose=0,**kwargs):
     """routine_generate_decoder_predictions_test computes predictions for the population-level decoder.
     if test_selected_only is false, test with all trials that were not involved in training.
-    if test_selected_only is false, then only the test trials indicated by the cv_fold in d_labels is used.
+    if test_selected_only is false, then only the test trials indicated by the cv_fold in df_labels is used.
     routine_generate_decoder_predictions_test has a typical run time ~1 second per member of dict_tbins_lst.
 
     Example Usage:
-dict_results = routine_generate_decoder_predictions_test(dict_tbins_lst,spike_time_array,data,d_labels,
+dict_results = routine_generate_decoder_predictions_test(dict_tbins_lst,spike_time_array,data,df_labels,
                 p_significant=0.05,
                 scale_pos_weight=None,
                 learning_rate=None,
@@ -242,15 +242,15 @@ df_results.head()
         booF_test=task['booF_test']&~task['booF']
 
         #attempt to deduce the cv iteration
-        boo_selected =d_labels['cv_fold_voice_only']>-1
-        boo_selected|=d_labels['cv_fold_face_only']>-1
-        boo_selected|=d_labels['cv_fold_match']>-1
-        boo_selected|=d_labels['cv_fold_mismatch']>-1
+        boo_selected =df_labels['cv_fold_voice_only']>-1
+        boo_selected|=df_labels['cv_fold_face_only']>-1
+        boo_selected|=df_labels['cv_fold_match']>-1
+        boo_selected|=df_labels['cv_fold_mismatch']>-1
         if test_selected_only:
             booT_test &=boo_selected
             booF_test &=boo_selected
-        cv_iter = d_labels[booT_test|booF_test]['cv_fold_voice_only'].max()
-        cv_iter = np.max((cv_iter, d_labels[booT_test]['cv_fold_match'].max()))
+        cv_iter = df_labels[booT_test|booF_test]['cv_fold_voice_only'].max()
+        cv_iter = np.max((cv_iter, df_labels[booT_test]['cv_fold_match'].max()))
 
         num_trials = X.shape[0]
         #test shapes all agree

@@ -19,7 +19,7 @@ import numpy as np, pandas as pd, matplotlib.pyplot as plt, sys, os
 import matplotlib.ticker as mtick
 import matplotlib as mpl
 import seaborn as sns
-import time
+import time, copy
 
 from xgboost import XGBClassifier
 
