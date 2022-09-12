@@ -91,7 +91,7 @@ dict_cm,dict_decoder = test_decoder_predictions(probas,ytest,num_features=num_fe
         #print the bluf
         print(f"classifier model: ensemble of gradient boosted decision trees")
         print_dict(dict_cm)
-        print(f"num_features={num_features}")
+        #print(f"num_features={num_features}")
         #print(f"num_samples_training={ytrain.shape[0]}")
         print(f"num_samples_testing={ytest.shape[0]}")
         print(f"num_true_testing={sum(np.isclose(ytest,1.))}")
@@ -103,7 +103,7 @@ dict_cm,dict_decoder = test_decoder_predictions(probas,ytest,num_features=num_fe
     return dict_cm,dict_decoder
 
 
-def parse_decoder_kwargs(dict_decoder_hyperparameters,task_index,gpu_available=False,scale_pos_weight=None,**kwargs):
+def parse_decoder_kwargs(dict_decoder_hyperparameters,task_index,gpu_available=False,scale_pos_weight=None,learning_rate=None,**kwargs):
     """parse_decoder_kwargs returns a dictionary of keyword arguements to the decoder.
     the value for scale_pos_weight in dict_decoder_hyperparameters is overwritten if scale_pos_weight is not None.
     scale_pos_weight = sum(booF)/sum(booT) is always reasonable a priori guess.
@@ -133,6 +133,15 @@ kwargs_decoder = parse_decoder_kwargs(dict_decoder_hyperparameters,task_index,gp
     if not gpu_available:
         kwargs_decoder['tree_method'] = 'hist'
         kwargs_decoder['n_jobs'] = np.max((1,os.cpu_count()-1))
+
+    #n_job ≠ n_jobs
+    try: #n_job need to be removed for decoder construction to be interpreted.
+        kwargs_decoder.pop('n_job')
+    except KeyError as e:
+        pass
+    if learning_rate is not None:
+        kwargs_decoder['learning_rate']=learning_rate
+
     return kwargs_decoder
 
 def train_test_decoder(xtrain,ytrain,xtest,ytest,kwargs_decoder,
@@ -284,15 +293,10 @@ df_results.head()
         else:
             task_index=1
 
-        kwargs_decoder = parse_decoder_kwargs(dict_decoder_hyperparameters,task_index,gpu_available=gpu_available,scale_pos_weight=scale_pos_weight)
-
-        #NOTE: 'n_job' was replaced from .yaml src as n_jobs. this shouldn't be needed anymore unless i goofed.
-        # try: #n_job need to be removed for decoder construction to be interpreted.
-        #     kwargs_decoder.pop('n_job')
-        # except KeyError as e:
-        #     pass
-        if learning_rate is not None:
-            kwargs_decoder['learning_rate']=learning_rate
+        kwargs_decoder = parse_decoder_kwargs(dict_decoder_hyperparameters,task_index,
+                        gpu_available=gpu_available,
+                        scale_pos_weight=scale_pos_weight,
+                        learning_rate=learning_rate)
 
         #generate predictions
         dict_predictions = train_test_decoder(xtrain,ytrain,xtest,ytest,kwargs_decoder,

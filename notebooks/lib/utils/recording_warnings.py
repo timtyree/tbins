@@ -89,13 +89,14 @@ df_es = identify_obvious_recording_warnings_from_session(error_code_array,spike_
                                                  printing=True,**kwargs)
     """
     num_neurons = error_code_array.shape[1]
-    error_code=1
-    #choose filter for trials that are unreasonable (error_code==3)
-    count_err_1_by_trial = np.sum(error_code_array==error_code,axis=1)
-    #choose filter for neurons that are unreasonable (error_code==3 too often)
-    count_err_1_by_neuron = np.sum(error_code_array==error_code,axis=0)
+    boo_err  = error_code_array==1
+    boo_err |= error_code_array==2
+    #choose filter for trials that are unreasonable
+    count_err_1_by_trial = np.sum(boo_err,axis=1)
+    #choose filter for neurons that are unreasonable
+    count_err_1_by_neuron = np.sum(boo_err,axis=0)
     #count error streaks
-    booerr = (error_code_array==error_code).T
+    booerr = (boo_err).T
     longest_error_streak_lst=[]
     final_error_streak_lst=[]
     max_spike_count_lst=[]

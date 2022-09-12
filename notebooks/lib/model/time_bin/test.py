@@ -29,6 +29,7 @@ df_tbins_refined = comp_split_tbin_auc(spike_time_array, df_tbins_refined, dict_
     X,tbin_indices=extract_simple_firing_rates(spike_time_array, df_tbins_refined)
     auc_test_lst=[]
     auc_train_lst=[]
+    auc_overall_lst=[]
     for i,tbin_tuple in enumerate(tbin_indices):
         #compute training auc for candidate time bin
         predictor_values = np.concatenate((X[booT_train,i],X[booF_train,i]))
@@ -36,16 +37,24 @@ df_tbins_refined = comp_split_tbin_auc(spike_time_array, df_tbins_refined, dict_
         label_values[:sum(booT_train)]=1
         auc_train=comp_auc_simple(label_values, predictor_values)
         #compute testing auc for candidate time bin
-        predictor_values = np.concatenate((X[booT_test,i],X[booF_test,i]))
-        label_values = np.zeros(predictor_values.shape[0],dtype=int)
-        label_values[:sum(booT_test)]=1
-        auc_test=comp_auc_simple(label_values, predictor_values)
+        predictor_values_ = np.concatenate((X[booT_test,i],X[booF_test,i]))
+        label_values_ = np.zeros(predictor_values_.shape[0],dtype=int)
+        label_values_[:sum(booT_test)]=1
+        auc_test=comp_auc_simple(label_values_, predictor_values_)
+
+        #compute overall auc for candidate time bin, which is only to be used for descriptive visualization of the tbin.
+        auc_overall=comp_auc_simple(label_values=np.concatenate((label_values,label_values_)),
+                                    predictor_values=np.concatenate((predictor_values,predictor_values_)))
+
         #rectify sign consistent with training
         if auc_train<0.5:
             auc_train=1-auc_train
             auc_test=1-auc_test
+            auc_overall=1-auc_overall
         auc_test_lst.append(auc_test)
         auc_train_lst.append(auc_train)
+        auc_overall_lst.append(auc_overall)
     df_tbins_refined['auc_test']=auc_test_lst
     df_tbins_refined['auc_train']=auc_train_lst
+    df_tbins_refined['auc_overall']=auc_overall_lst
     return df_tbins_refined

@@ -9,7 +9,7 @@ from ...measures.point_process_measures import extract_simple_firing_rates
 from ...utils.progress_bar import printProgressBar
 
 def gener_tbins_fast(spike_time_array,booT,booF,
-    nid_values=None,
+    nid_values_reasonable=None,
     taumin=0,
     taumax=3.6,
     delta_tau_min=0.2,
@@ -32,7 +32,7 @@ def gener_tbins_fast(spike_time_array,booT,booF,
 
     Parameters Settings
     --------------------
-        nid_values: neuron index values to consider.  all neurons are considered if nid_values is None (default: nid_values=None)
+        nid_values_reasonable: neuron index values to consider.  all neurons are considered if nid_values_reasonable is None (default: nid_values_reasonable=None)
 
         taumin: earliest start time
 
@@ -91,11 +91,11 @@ df_tbins_cv,df_tbins_refined_cv=gener_tbins_fast(spike_time_array,booT,booF,refi
     boo_cv2=np.concatenate((boo_cv2F,boo_cv2T))
     boo_cv3=np.concatenate((boo_cv3F,boo_cv3T))
 
-    if nid_values is None:
+    if nid_values_reasonable is None:
         num_neurons=spike_time_array.shape[1]
-        nid_values=np.array(list(range(num_neurons)))
+        nid_values_reasonable=np.array(list(range(num_neurons)))
     else:
-        num_neurons=nid_values.shape[0]
+        num_neurons=nid_values_reasonable.shape[0]
     if printing:
         print(f"generating tbins for {num_neurons} neurons...")
 
@@ -103,7 +103,7 @@ df_tbins_cv,df_tbins_refined_cv=gener_tbins_fast(spike_time_array,booT,booF,refi
     df_tbins_neuron_lst=[]
     step=0
     nsteps=num_neurons
-    for nid in nid_values:
+    for nid in nid_values_reasonable:
         spike_time_values_neuron=spike_time_array[:,nid]
         df_tbins_weak=gener_candidate_tbins_for_neuron_fast(tau1_values,tau2_values,booT,booF,spike_time_values_neuron,random_state=random_state)#,**kwargs)
         df_tbins_neuron=select_nonoverlapping_tbins_for_neuron(df_tbins_weak,max_dur_overlap=0.)
