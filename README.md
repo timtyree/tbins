@@ -23,7 +23,7 @@ If you make use of this software for your work, please cite the paper associated
   @article {TyreeEtAl2022,
       author = {Tyree, Timothy and Metke, Mike and Miller, Cory},
       title = {Cross-Modal Representation of Identity in Primate Hippocampus},
-      journal = {Nature (in submission, Manuscript #: 2022-09-13953)},
+      journal = {In submission},
       archivePrefix = "arXiv",
       eprint = {??},
       primaryClass = "stat.ML",
