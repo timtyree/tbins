@@ -1,7 +1,7 @@
 
 # Time Bins for Classification (tbins)
 
-Time bins for classification of categorical information encoded in point processes using ensembles of gradient boosted decision trees.
+Time bins for classification of categorical information encoded in neural point processes using ensembles of gradient boosted decision trees.
 
 [This is a comment that will be hidden. Hurray for Science!]: #
 
